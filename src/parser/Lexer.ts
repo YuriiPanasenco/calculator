@@ -41,7 +41,14 @@ export default class Lexer{
     private tokenizeNumber(){
         let current = this.peek(0);
         let tokenText = "";
-        while (this.isNumber(current)){
+        while (true){
+            if(current == '.'){
+                if(tokenText.indexOf('.')!=-1){
+                    throw new Error("Invalid float number");
+                }
+            }else if(!this.isNumber(current)){
+                break;
+            }
             tokenText+=current;
             current=this.next();
         }
