@@ -18,6 +18,8 @@ export default class Lexer{
         '(':TokenType.LPAREN,
         ')':TokenType.RPAREN,
         ',':TokenType.COMMA,
+        'mod':TokenType.MOD,
+        '^':TokenType.POWER
     };
 
 
@@ -73,7 +75,12 @@ export default class Lexer{
             tokenText+=current;
             current=this.next();
         }
-        this.tokens.push(new Token(TokenType.WORD, tokenText))
+
+        if(tokenText=="mod"){
+            this.tokens.push(new Token(TokenType.MOD));
+        }else {
+            this.tokens.push(new Token(TokenType.WORD, tokenText));
+        }
     }
 
     private isLater(value:string):boolean{

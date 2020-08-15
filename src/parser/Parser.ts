@@ -52,6 +52,8 @@ export default class Parser{
                 expr = new BinaryExpression('+',expr, this.multiplicative());
             }else if(this.match(TokenType.MINUS)){
                 expr = new BinaryExpression('-',expr, this.multiplicative());
+            }else if(this.match(TokenType.MOD)){
+                expr = new BinaryExpression('mod',expr, this.multiplicative());
             }else {
                 break;
             }
@@ -66,6 +68,8 @@ export default class Parser{
                 expr = new BinaryExpression('*',expr, this.unary());
             }else if(this.match(TokenType.SLASH)){
                 expr = new BinaryExpression('/',expr, this.unary());
+            }else if(this.match(TokenType.POWER)){
+                expr = new BinaryExpression('^',expr, this.unary());
             }else {
                 break;
             }

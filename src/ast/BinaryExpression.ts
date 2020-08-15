@@ -23,7 +23,9 @@ export default class BinaryExpression implements Expression{
         switch (this.operation){
             case "*": res = number1 * number2;  break;
             case "/": res = number1 / number2;  break;
+            case "^": res = number1 ** number2;  break;
             case "-": res = number1 - number2;  break;
+            case "mod": res = number1 % number2;  break;
             case "+":
             default:
                 res = number1 + number2;  break;

@@ -7,6 +7,8 @@ enum TokenType{
     SLASH,
     PLUS,
     MINUS,
+    MOD,
+    POWER,
 
     LPAREN, //(
     RPAREN, //)
