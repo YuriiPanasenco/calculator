@@ -29,6 +29,8 @@ export default class Lexer{
             const current = this.peek(0);
             if(this.isNumber(current)){
                 this.tokenizeNumber();
+            }else if(this.isLater(current)){
+                this.tokenizeWord();
             }else if(Lexer.OPERATOR_TOKENS[current]){
                 this.tokenizeOperator();
             }else{
@@ -62,6 +64,20 @@ export default class Lexer{
         this.next();
     }
 
+    private tokenizeWord(){
+        const regexp = new RegExp('[a-zA-Z0-9_\$]');
+        let current = this.peek(0);
+        let tokenText = "";
+        while (regexp.test(current)){
+            tokenText+=current;
+            current=this.next();
+        }
+        this.tokens.push(new Token(TokenType.WORD, tokenText))
+    }
+
+    private isLater(value:string):boolean{
+        return value.length === 1 && /[a-zA-Z]/i.test(value);
+    }
 
     private isNumber(value:string):boolean{
         return value >= '0' && value <= '9';

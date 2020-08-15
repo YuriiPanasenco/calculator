@@ -3,7 +3,7 @@ import Expression from "./ast/Expression";
 import Parser from "./parser/Parser";
 
 
-const source:string = "0.1+0.2";
+const source:string = "PIf/2";
 
 const tokens = new Lexer(source).tokenize();
 

@@ -4,6 +4,7 @@ import TokenType from "./TokenType";
 import NumberExpression from "../ast/NumberExpression";
 import BinaryExpression from "../ast/BinaryExpression";
 import UnaryExpression from "../ast/UnaryExpression";
+import ConstantExpression from "../ast/ConstantExpression";
 
 
 export default class Parser{
@@ -73,6 +74,8 @@ export default class Parser{
         const current = this.get(0);
         if(this.match(TokenType.NUMBER)){
             return new NumberExpression(parseFloat(current.text));
+        }else if(this.match(TokenType.WORD)){
+            return new ConstantExpression(current.text);
         }else if(this.match(TokenType.LPAREN)){
             const res = this.expression();
             this.match(TokenType.RPAREN);

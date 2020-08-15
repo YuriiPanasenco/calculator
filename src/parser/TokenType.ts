@@ -1,6 +1,7 @@
 
 enum TokenType{
     NUMBER,
+    WORD,
 
     STAR,
     SLASH,
