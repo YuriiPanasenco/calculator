@@ -5,6 +5,7 @@ import NumberExpression from "../ast/NumberExpression";
 import BinaryExpression from "../ast/BinaryExpression";
 import UnaryExpression from "../ast/UnaryExpression";
 import ConstantExpression from "../ast/ConstantExpression";
+import FunctionalExpression from "../ast/FunctionalExpression";
 
 
 export default class Parser{
@@ -27,6 +28,17 @@ export default class Parser{
         }
 
         return result;
+    }
+
+    func():Expression{
+        const functionName = this.consume(TokenType.WORD).text;
+        this.consume(TokenType.LPAREN);
+        const exp = new FunctionalExpression(functionName);
+        while(!this.match(TokenType.RPAREN)){
+            exp.addArgument(this.expression());
+            this.match(TokenType.COMMA)
+        }
+        return exp;
     }
 
     private expression():Expression{
@@ -74,6 +86,8 @@ export default class Parser{
         const current = this.get(0);
         if(this.match(TokenType.NUMBER)){
             return new NumberExpression(parseFloat(current.text));
+        }else if(this.get(0).type==TokenType.WORD && this.get(1).type==TokenType.LPAREN){
+            return this.func();
         }else if(this.match(TokenType.WORD)){
             return new ConstantExpression(current.text);
         }else if(this.match(TokenType.LPAREN)){
@@ -82,6 +96,15 @@ export default class Parser{
             return res;
         }
         throw new Error("Unknown expression");
+    }
+
+    private consume(type:TokenType):Token{
+        const current = this.get(0);
+        if(type!=current.type){
+            throw new Error("Token "+ current+" does not match");
+        }
+        this.pos++;
+        return current;
     }
 
 

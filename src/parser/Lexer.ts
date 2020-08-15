@@ -17,6 +17,7 @@ export default class Lexer{
         '/':TokenType.SLASH,
         '(':TokenType.LPAREN,
         ')':TokenType.RPAREN,
+        ',':TokenType.COMMA,
     };
 
 

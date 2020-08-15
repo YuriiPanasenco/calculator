@@ -1,4 +1,6 @@
 import Expression from "./Expression";
+import Value from "../execute/Value";
+import NumberValue from "../execute/NumberValue";
 
 
 export default class BinaryExpression implements Expression{
@@ -14,17 +16,19 @@ export default class BinaryExpression implements Expression{
         this.expr2 = expr2;
     }
 
-    eval(): number {
-        let res;
+    eval(): Value {
+        let res:number;
+        const number1:number = this.expr1.eval().asNumber();
+        const number2:number = this.expr2.eval().asNumber();
         switch (this.operation){
-            case "*": res = this.expr1.eval() * this.expr2.eval();  break;
-            case "/": res = this.expr1.eval() / this.expr2.eval();  break;
-            case "-": res = this.expr1.eval() - this.expr2.eval();  break;
+            case "*": res = number1 * number2;  break;
+            case "/": res = number1 / number2;  break;
+            case "-": res = number1 - number2;  break;
             case "+":
             default:
-                res = this.expr1.eval() + this.expr2.eval();  break;
+                res = number1 + number2;  break;
         }
-        return res;
+        return new NumberValue(res);
     }
 
 

@@ -1,5 +1,6 @@
 import Expression from "./Expression";
 import Constants from "../execute/Constants";
+import Value from "../execute/Value";
 
 
 export default class ConstantExpression implements Expression{
@@ -11,7 +12,7 @@ export default class ConstantExpression implements Expression{
         this.name = name;
     }
 
-    eval(): number {
+    eval(): Value {
         return Constants.get(this.name);
     }
 

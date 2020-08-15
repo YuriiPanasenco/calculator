@@ -1,4 +1,6 @@
 import Expression from "./Expression";
+import Value from "../execute/Value";
+import NumberValue from "../execute/NumberValue";
 
 
 export default class UnaryExpression implements Expression{
@@ -12,15 +14,15 @@ export default class UnaryExpression implements Expression{
         this.expr = expr;
     }
 
-    eval(): number {
-        let res;
+    eval(): Value {
+        let res:number;
         switch (this.operation){
-            case "-": res = -this.expr.eval();  break;
+            case "-": res = -this.expr.eval().asNumber();  break;
             case "+":
             default:
-                res = this.expr.eval();  break;
+                res = this.expr.eval().asNumber();  break;
         }
-        return res;
+        return new NumberValue(res);
     }
 
     toString(){

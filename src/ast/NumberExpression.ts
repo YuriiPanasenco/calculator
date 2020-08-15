@@ -1,20 +1,22 @@
 import Expression from "./Expression";
+import Value from "../execute/Value";
+import NumberValue from "../execute/NumberValue";
 
 
 export default class NumberExpression implements Expression{
 
-    private readonly value:number;
+    private readonly value:Value;
 
     constructor(value: number) {
-        this.value = value;
+        this.value = new NumberValue(value);
     }
 
-    eval(): number {
+    eval(): Value {
         return this.value;
     }
 
     toString(){
-        return this.value;
+        return this.value.asString();
     }
 
 }
