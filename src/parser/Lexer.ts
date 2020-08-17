@@ -30,7 +30,7 @@ export default class Lexer{
     public tokenize():Array<Token> {
         while (this.pos<this.input.length){
             const current = this.peek(0);
-            if(this.isNumber(current)){
+            if(this.isNumber(current) || (current=="." && this.isNumber(this.peek(1)))){
                 this.tokenizeNumber();
             }else if(this.isLater(current)){
                 this.tokenizeWord();

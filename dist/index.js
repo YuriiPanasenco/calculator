@@ -725,7 +725,6 @@ var SqrtFunction = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return calculate; });
 /* harmony import */ var _parser_Lexer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parser/Lexer */ "./src/parser/Lexer.ts");
 /* harmony import */ var _parser_Parser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parser/Parser */ "./src/parser/Parser.ts");
 
@@ -735,6 +734,8 @@ function calculate(source) {
     var expressions = new _parser_Parser__WEBPACK_IMPORTED_MODULE_1__["default"](tokens).parse();
     return expressions[0].eval().asNumber();
 }
+console.log(calculate("2+.4"));
+/* harmony default export */ __webpack_exports__["default"] = (calculate);
 
 
 /***/ }),
@@ -761,7 +762,7 @@ var Lexer = /** @class */ (function () {
     Lexer.prototype.tokenize = function () {
         while (this.pos < this.input.length) {
             var current = this.peek(0);
-            if (this.isNumber(current)) {
+            if (this.isNumber(current) || (current == "." && this.isNumber(this.peek(1)))) {
                 this.tokenizeNumber();
             }
             else if (this.isLater(current)) {
